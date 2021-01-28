@@ -4,8 +4,12 @@ import './App.css';
 
 function App() {
   const [on, setOn] = useState(false);
+  const [todo, setTodo] = useState(0);
   function switchBody() {
     setOn(!on);
+  };
+  function showDetails(todoNum: number) {
+    setTodo(todoNum);
   };
 
   return (
@@ -13,7 +17,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit <code>src/App.tsx</code> and save to reload
+          <TodoDetails todoNum={todo} />
         </p>
         <a
           className="App-link"
@@ -28,33 +33,60 @@ function App() {
         </p>
       </header>
       <body className="App-body">
-        {on ? <Todos /> : <QuestionList />}
+        {on ? <Todos onClickDo={showDetails} /> : <QuestionList />}
       </body>
     </div>
   );
 }
-// interface AppBodyProps {
-//   content: String;
-// }
 
-// function AppBody({content}: AppBodyProps) {
-//   if (content = "todos") {
-//     return <Todos />
-//   } else {
-//     return <QuestionList />
-//   }
-// }
-
-function Todos() {
+interface TodosProps {
+  onClickDo: any
+}
+function Todos({
+  onClickDo
+}: TodosProps
+) {
   return (
     <div className="Todos">
       <h2>
         TODOs:
       </h2>
       <p>
-        1. [DONE] 2 subcomponents of App, switch by a button.
-        2. [WILL START] change parent content when click something in todos, use callback.
+        1. <input type="button" value="DONE" onClick={onClickDo(1)} /> 2 subcomponents of App, switch by a button.<br />
+        2. <input type="button" value="IN PROGRESS" onClick={onClickDo(2)} /> change parent content when click something in todos, use callback.
       </p>
+    </div>
+  );
+}
+
+interface TodoDetailProps {
+  todoNum: number
+}
+function TodoDetails({
+  todoNum
+}: TodoDetailProps
+) {
+  const details = () => {
+    switch (todoNum) {
+      case 1:
+        return (
+        <p>
+          TODO1
+        </p>
+        );
+      case 2:
+        return (
+          <p>
+            Problem: not triggered by 'click' todo but 'load' todo; no reaction when click TODO1
+          </p>
+        );
+      default:
+        return;
+    }
+  }
+  return (
+    <div className="TodoDetails">
+      {details()}
     </div>
   );
 }
@@ -66,6 +98,7 @@ function QuestionList() {
         Question list:
       </h2>
       <p>
+        * rewrite parent component not react as expected.<br />
         1. about `ReactDOM.render`, what is `React.StrictMode`, and what root id for?<br />
         2. what difference of class component and function component?
       </p>
