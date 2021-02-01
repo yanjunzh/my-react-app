@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
+import todo3Image from './todo3.png';
 import './App.css';
 
 function App() {
@@ -8,39 +9,24 @@ function App() {
   function switchBody() {
     setOn(!on);
   };
-  function showDetails(todoNum: number) {
-    setTodo(todoNum);
-  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload
-          <TodoDetails todoNum={todo} />
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <TodoDetails todoNum={todo} />
         <p>
           <input type="button" value="switch body" onClick={switchBody} />
         </p>
       </header>
       <body className="App-body">
-        {on ? <Todos onClickDo={showDetails} /> : <QuestionList />}
+        {on ? <Todos onClickDo={setTodo} /> : <QuestionList />}
       </body>
     </div>
   );
 }
 
 interface TodosProps {
-  onClickDo: any
+  onClickDo: (i:number) => void
 }
 function Todos({
   onClickDo
@@ -52,8 +38,9 @@ function Todos({
         TODOs:
       </h2>
       <p>
-        1. <input type="button" value="DONE" onClick={onClickDo(1)} /> 2 subcomponents of App, switch by a button.<br />
-        2. <input type="button" value="IN PROGRESS" onClick={onClickDo(2)} /> change parent content when click something in todos, use callback.
+        1. <input type="button" value="DONE" onClick={() => {onClickDo(1)}} /> 2 subcomponents of App, switch by a button.<br />
+        2. <input type="button" value="DONE" onClick={() => {onClickDo(2)}} /> change parent content when click something in todos, use callback.<br />
+        3. <input type="button" value="NOT START" onClick={() => onClickDo(3)} /> UserPage with userInfo and friend list.
       </p>
     </div>
   );
@@ -77,11 +64,30 @@ function TodoDetails({
       case 2:
         return (
           <p>
-            Problem: not triggered by 'click' todo but 'load' todo; no reaction when click TODO1
+            define type: <code>onClickDo: (i:number) =&gt; void</code>
           </p>
         );
+      case 3:
+        return (
+          <img src={todo3Image} className="todo-img" alt="todo3Image" />
+        );
       default:
-        return;
+        return (
+          <div>
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.tsx</code> and save to reload
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          </div> 
+        );
     }
   }
   return (
@@ -98,7 +104,6 @@ function QuestionList() {
         Question list:
       </h2>
       <p>
-        * rewrite parent component not react as expected.<br />
         1. about `ReactDOM.render`, what is `React.StrictMode`, and what root id for?<br />
         2. what difference of class component and function component?
       </p>
