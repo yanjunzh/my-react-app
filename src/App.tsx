@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import todo3Image from './todo3.png';
 import './App.css';
+import UserPage from './UserPage';
+import {User} from './User';
 
 function App() {
   const [on, setOn] = useState(false);
@@ -53,6 +56,16 @@ function TodoDetails({
   todoNum
 }: TodoDetailProps
 ) {
+  const gotoUserPage = () => {
+    const user:User = {name: "a", age: 18, description: ""};
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <UserPage user={user}/>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
   const details = () => {
     switch (todoNum) {
       case 1:
@@ -69,7 +82,10 @@ function TodoDetails({
         );
       case 3:
         return (
-          <img src={todo3Image} className="todo-img" alt="todo3Image" />
+          <div>
+            <img src={todo3Image} className="todo-img" alt="todo3Image" />
+            <input type="button" value="UserPage" onClick={gotoUserPage} />
+          </div>
         );
       default:
         return (
