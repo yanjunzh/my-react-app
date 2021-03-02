@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import logo from './logo.svg';
 import todo3Image from './todo3.png';
 import './App.css';
+import Examples from './Examples';
 
 function App() {
   const [on, setOn] = useState(false);
@@ -86,6 +88,16 @@ function TodoDetails({
           >
             Learn React
           </a>
+          <br />
+          <a
+            className="App-link"
+            href="/examples"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Examples
+          </a>
+          <Examples />
           </div> 
         );
     }
