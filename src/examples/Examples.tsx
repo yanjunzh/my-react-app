@@ -5,7 +5,7 @@ function Examples() {
     return (
         <div>
             <ExampleUseState />
-            <ExampleUseEffect />
+            {/* <ExampleUseEffect /> */}
             {/* <p>FriendStatus(props={{friend: {id: "any",}}})</p> */}
         </div>
     );
